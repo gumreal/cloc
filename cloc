@@ -7623,6 +7623,7 @@ sub set_constants {                          # {{{1
             'idc'         => 'C'                     ,
             'cats'        => 'C'                     ,
             'c'           => 'C'                     ,
+	    'cu'	  => 'C'		     ,
             'tpp'         => 'C++'                   ,
             'tcc'         => 'C++'                   ,
             'ipp'         => 'C++'                   ,
@@ -7845,6 +7846,8 @@ sub set_constants {                          # {{{1
             'pde'         => 'Arduino Sketch'        , # pre 1.0
             'itk'         => 'Tcl/Tk'                ,
             'java'        => 'Java'                  ,
+	    'jrag'	  => 'JastAdd'		     ,
+	    'jadd'	  => 'JastAdd'	             ,
             'jcl'         => 'JCL'                   , # IBM Job Control Lang.
             'jl'          => 'Lisp/Julia'            ,
             'xsjslib'     => 'JavaScript'            ,
@@ -7926,7 +7929,8 @@ sub set_constants {                          # {{{1
             'Makefile'    => 'make'                  ,
             'mao'         => 'Mako'                  ,
             'mako'        => 'Mako'                  ,
-            'workbook'    => 'Markdown'              ,
+            'mo'          => 'Modelica'              ,
+	    'workbook'    => 'Markdown'              ,
             'ronn'        => 'Markdown'              ,
             'mkdown'      => 'Markdown'              ,
             'mkdn'        => 'Markdown'              ,
@@ -9058,6 +9062,14 @@ sub set_constants {                          # {{{1
                                #  '(.*?)' , '"$1$2$1 + $1$3$1$4"'],
                                 [ 'call_regexp_common'  , 'C++'    ],
                             ],
+    'JastAdd'         	=> [
+                                [ 'replace_regex', '\\\\$', ' '],
+                                [ 'replace_between_regex', '(["\'])(.*?/\*)\g1',
+                                  '(.*?)' , '"xx"'],
+                                [ 'replace_between_regex', '(["\'])(.*?\*/)\g1',
+                                  '(.*?)' , '"xx"'],
+                                [ 'call_regexp_common'  , 'C++'    ],
+                            ],
     'JavaScript'         => [
                                 [ 'rm_comments_in_strings', "'", '/*', '*/' ],
                                 [ 'rm_comments_in_strings', "'", '//', '' ],
@@ -9220,6 +9232,11 @@ sub set_constants {                          # {{{1
                                 # http://stackoverflow.com/questions/4823468/comments-in-markdown
                             ],
     'MATLAB/Mathematica/Objective-C/MUMPS/Mercury' => [ [ 'die' ,          ], ], # never called
+    'Modelica'           => [
+                                [ 'rm_comments_in_strings', '"', '/*', '*/' ],
+                                [ 'rm_comments_in_strings', '"', '//', '' ],
+                                [ 'call_regexp_common'  , 'C++'    ],
+			    ],    
     'MUMPS'              => [   [ 'remove_matches'      , '^\s*;'  ], ],
     'Mustache'           => [
                                 [ 'remove_between_general', '{{!', '}}' ],
@@ -10324,6 +10341,7 @@ sub set_constants {                          # {{{1
     'JavaScript'                   =>   1.48,
     'JavaServer Faces'             =>   1.5 ,
     'Jinja Template'               =>   1.5 ,
+    'JastAdd'			   =>   1.36,	
     'JSON'                         =>   2.50,
     'JSON5'                        =>   2.50,
     'JSP'                          =>   1.48,
@@ -10396,6 +10414,7 @@ sub set_constants {                          # {{{1
     'microstep'                    =>   4.00,
     'miranda'                      =>   2.00,
     'model 204'                    =>   2.11,
+    'Modelica'                     =>   1.57,
     'modula 2'                     =>   1.00,
     'mosaic'                       =>  13.33,
     # 'ms c ++ v. 7'                 =>   1.51,
